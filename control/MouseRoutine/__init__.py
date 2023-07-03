@@ -40,15 +40,14 @@ class MouseRoutine:
             print(f"Mouse clicked at ({x}, {y}) with button {button}")
 
     def load(self, path: str):
-        with open(f"routines/{path}", "r") as file:
+        with open(path, "r") as file:
             routine = json.load(file)
         for mcw in routine:
-            print(routine[mcw])
             self._routine.append(
                 MoveClickWait(
                     int(routine[mcw]["x_pos"]),
                     int(routine[mcw]["y_pos"]),
-                    int(routine[mcw]["wait_time"]),
+                    None if routine[mcw]["wait_time"] == 'None' else float(routine[mcw]["wait_time"]),
                 )
             )
 
@@ -66,5 +65,5 @@ class MouseRoutine:
                 }
             )
 
-        with open(f"routines/{path}", "w") as file:
+        with open(path, "w") as file:
             json.dump(routine, file)
