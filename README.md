@@ -48,7 +48,10 @@ GuiAutomate is a MacOS GUI automation framework. It's in the early stages of dev
 
 ## Usage
 
-As the project is in its early stages, usage instructions are not available. Please keep an eye on the repository for updates and documentation.
+After installing start the cli program.
+```
+python3 guiautomate.py --mode <mode> --path <path to routine>
+```
 
 ## Contributing
 
