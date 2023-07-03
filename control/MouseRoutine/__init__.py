@@ -5,7 +5,8 @@ from typing import TypeVar, List, Tuple
 from pynput import mouse
 from control.MouseRoutine.MoveClickWait import MoveClickWait
 
-class MouseRoutine():
+
+class MouseRoutine:
     _routine: List[MoveClickWait]
 
     def __init__(self):
@@ -15,7 +16,8 @@ class MouseRoutine():
         for mcw in self._routine:
             print(f"Clicking: ({mcw._x}, {mcw._y}), waiting: {mcw._y}")
             pyautogui.click(x=mcw._x, y=mcw._y)
-            time.sleep(mcw._wait)
+            if mcw._wait is not None:
+                time.sleep(mcw._wait)
 
     def record(self):
         with mouse.Listener(on_click=self.record_pos) as listener:
@@ -26,7 +28,15 @@ class MouseRoutine():
             if button == mouse.Button.right:
                 return False
             pos = pyautogui.position()
-            self._routine.append(MoveClickWait(pos[0], pos[1], 2))
+
+            # If not first MCW of routine, update past MCW wait_time
+            if self._routine:
+                self._routine[-1].init_wait(
+                    time.time() - self._routine[-1].get_init_time()
+                )
+
+            self._routine.append(MoveClickWait(pos[0], pos[1], None))
+
             print(f"Mouse clicked at ({x}, {y}) with button {button}")
 
     def load(self, path: str):
@@ -34,17 +44,27 @@ class MouseRoutine():
             routine = json.load(file)
         for mcw in routine:
             print(routine[mcw])
-            self._routine.append(MoveClickWait(int(routine[mcw]["x_pos"]),
-                                               int(routine[mcw]["y_pos"]),
-                                               int(routine[mcw]["wait_time"])))
+            self._routine.append(
+                MoveClickWait(
+                    int(routine[mcw]["x_pos"]),
+                    int(routine[mcw]["y_pos"]),
+                    int(routine[mcw]["wait_time"]),
+                )
+            )
 
     def save(self, path: str):
         routine = {}
 
-        for k,v in enumerate(self._routine):
-            routine.update({f"{k}": {"x_pos": f"{v._x}",
-                                    "y_pos": f"{v._y}",
-                                    "wait_time": f"{v._wait}"}})
+        for k, v in enumerate(self._routine):
+            routine.update(
+                {
+                    f"{k}": {
+                        "x_pos": f"{v._x}",
+                        "y_pos": f"{v._y}",
+                        "wait_time": f"{v._wait}",
+                    }
+                }
+            )
 
         with open(f"routines/{path}", "w") as file:
             json.dump(routine, file)

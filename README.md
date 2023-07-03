@@ -21,8 +21,13 @@ GuiAutomate is a MacOS GUI automation framework. It's in the early stages of dev
 
 ### Prerequisites
 
-- Python (As the project is written in Python)
-- MacOS Operating System
+- Python3 (As the project is written in Python)
+
+    - Python3 Tkinter
+        - xbps
+            - python3-tkinter
+        - apt
+            - python3-dev
 
 ### Installation
 
