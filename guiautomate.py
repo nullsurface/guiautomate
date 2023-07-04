@@ -1,7 +1,6 @@
 import argparse
 from control.MouseRoutine import MouseRoutine
 
-
 def record(abspath: bool, path: str):
     routine = MouseRoutine()
     routine.record()

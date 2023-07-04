@@ -1,14 +1,18 @@
 import time
 
 
-class MoveClickWait:
+class Movement:
+    """
+    A Movement is a screen position,
+    and action, and a time to wait after the action.
+    """
     _x: int
     _y: int
-    # _wait == None i
-    # is either a terminating mcw,
-    # or mcw is waiting for "wait time".
+    # when _wait == None i
+    # either terminating or uninit
     _wait: int
     _time: float
+    _action: int
 
     def __init__(self, x, y, wait):
         self._x = x

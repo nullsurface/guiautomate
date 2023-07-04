@@ -3,11 +3,11 @@ import time
 import pyautogui
 from typing import TypeVar, List, Tuple
 from pynput import mouse
-from control.MouseRoutine.MoveClickWait import MoveClickWait
+from control.Movement import Movement
 
 
 class MouseRoutine:
-    _routine: List[MoveClickWait]
+    _routine: List[Movement]
 
     def __init__(self):
         self._routine = []
@@ -35,7 +35,7 @@ class MouseRoutine:
                     time.time() - self._routine[-1].get_init_time()
                 )
 
-            self._routine.append(MoveClickWait(pos[0], pos[1], None))
+            self._routine.append(Movement(pos[0], pos[1], None))
 
             print(f"Mouse clicked at ({x}, {y}) with button {button}")
 
@@ -44,7 +44,7 @@ class MouseRoutine:
             routine = json.load(file)
         for mcw in routine:
             self._routine.append(
-                MoveClickWait(
+                Movement(
                     int(routine[mcw]["x_pos"]),
                     int(routine[mcw]["y_pos"]),
                     None if routine[mcw]["wait_time"] == 'None' else float(routine[mcw]["wait_time"]),
