@@ -15,7 +15,7 @@
 
 ## About The Project
 
-GuiAutomate is a MacOS GUI automation framework. It's in the early stages of development. As the project evolves, it is expected to provide automation capabilities on MacOS through a Graphical User Interface.
+GuiAutomate is a corss platform GUI automation framework. It's in the early stages of development. As the project evolves, it is expected to provide automation capabilities through the Graphical User Interface.
 
 ## Getting Started
 
