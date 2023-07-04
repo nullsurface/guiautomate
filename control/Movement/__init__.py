@@ -1,4 +1,5 @@
 import time
+from control.Movement.enums import Button, MouseButton
 
 
 class Movement:
@@ -13,11 +14,13 @@ class Movement:
     _wait: int
     _time: float
     _action: int
+    _button: Button
 
-    def __init__(self, x, y, wait):
+    def __init__(self, x, y, button: Button, wait):
         self._x = x
         self._y = y
         self._init_time = time.time()
+        self._button = button
         self._wait = wait
 
     # Will DO NOTHING if self._wait is != None
