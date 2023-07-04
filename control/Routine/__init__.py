@@ -22,6 +22,7 @@ class Routine:
                 time.sleep(mcw._wait)
 
     def record(self):
+        # TODO listen to keyboard too
         with mouse.Listener(on_click=self.record_pos) as listener:
             listener.join()
 
@@ -36,8 +37,8 @@ class Routine:
                 self._routine[-1].init_wait(
                     time.time() - self._routine[-1].get_init_time()
                 )
-
-            self._routine.append(Movement(pos[0], pos[1], button, None))
+            # TODO dynamic actions
+            self._routine.append(Movement(x=pos[0], y=pos[1], button=button, action="click", wait=None))
 
             print(f"Mouse clicked at ({x}, {y}) with button {button}")
 
@@ -50,6 +51,7 @@ class Routine:
                     x=int(routine[mcw]["x_pos"]),
                     y=int(routine[mcw]["y_pos"]),
                     button=routine[mcw]["button"],
+                    action=routine[mcw]["action"],
                     wait=None if routine[mcw]["wait_time"] == 'None'
                     else float(routine[mcw]["wait_time"]),
                 )
@@ -65,6 +67,7 @@ class Routine:
                         "x_pos": f"{v._x}",
                         "y_pos": f"{v._y}",
                         "button": f"{v._button}",
+                        "action": f"{v._action}",
                         "wait_time": f"{v._wait}",
                     }
                 }

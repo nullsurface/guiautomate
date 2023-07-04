@@ -1,13 +1,16 @@
 import enum
+from pynput import mouse
 
 
 def Button(enum):
     pass
 
+
 def MouseButton(Button):
-    LEFT = 1
-    MIDDLE = 2
-    RIGHT = 3
+    mouse.Button.left = "left"
+    mouse.Button.middle = "middle"
+    mouse.Button.right = "right"
+
 
 def MouseFunction(enum):
     CLICK = "click"
